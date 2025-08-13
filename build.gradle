@@ -2,20 +2,10 @@ buildscript {
     ext {
         queryDslVersion = "5.0.0"
     }
-} /* 쿼리dsl 추가 설정 : p448쪽 */
-
-plugins {
-    id 'java'
-    id 'org.springframework.boot' version '3.5.4'
-    id 'io.spring.dependency-management' version '1.1.7'
-}
-
-group = 'org.czo'
-version = '0.0.1-SNAPSHOT'
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+
     }
 }
 
@@ -31,50 +21,7 @@ repositories {
 
 dependencies {
 
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
-
-    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-
-    // 롬북
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
-    testCompileOnly 'org.projectlombok:lombok'
-    testAnnotationProcessor 'org.projectlombok:lombok'
-
-    // 테스트
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
-
-    // 쿼리dsl 문구 추가
     implementation "com.querydsl:querydsl-jpa:${queryDslVersion}:jakarta"
     annotationProcessor(
             "jakarta.persistence:jakarta.persistence-api",
             "jakarta.annotation:jakarta.annotation-api",
-            "com.querydsl:querydsl-apt:${queryDslVersion}:jakarta")
-
-    // 매퍼
-    implementation 'org.modelmapper:modelmapper:3.2.0'
-
-    // 레이아웃 기능을 위한 라이브러리 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" html 추가 필수
-    implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:3.1.0'
-
-    // 프론트
-    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'  // 타임리프
-    implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:3.1.0'
-
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-}
-
-sourceSets {
-    main {
-        java {
-            srcDirs += ["$projectDir/src/main/java", "$projectDir/build/generated"]
-        }
-    }
-}
-
-tasks.named('test') {
-    useJUnitPlatform()
-}
